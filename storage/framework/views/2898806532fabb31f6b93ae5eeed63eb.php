@@ -1,1 +1,0 @@
-<img src="<?php echo e(asset('logo.png')); ?>" class="h-9 w-9" alt="noteApp logo"><?php /**PATH C:\Users\Dell\Desktop\laravel\noteApp\notes-app-auth\resources\views/components/app-logo-icon.blade.php ENDPATH**/ ?>
