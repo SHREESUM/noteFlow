@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
@@ -10,7 +9,6 @@ use Livewire\Volt\Component;
 new class extends Component {
     public string $name = '';
     public string $email = '';
-    public string $password = '';
 
     /**
      * Mount the component.
@@ -40,11 +38,6 @@ new class extends Component {
             ],
         ];
 
-        // If email is being changed, require password verification
-        if ($this->email !== $user->email) {
-            $rules['password'] = ['required', 'string', 'current_password'];
-        }
-
         $validated = $this->validate($rules);
 
         $user->fill([
@@ -57,9 +50,6 @@ new class extends Component {
         }
 
         $user->save();
-
-        // Reset password field after successful update
-        $this->password = '';
 
         $this->dispatch('profile-updated', name: $user->name);
     }
@@ -92,20 +82,6 @@ new class extends Component {
 
             <div>
                 <flux:input wire:model="email" label="{{ __('Email') }}" type="email" name="email" required autocomplete="email" />
-
-                @if (auth()->user()->email !== $email)
-                    <div class="mt-4">
-                        <flux:input 
-                            wire:model="password" 
-                            label="{{ __('Current Password (required to change email)') }}" 
-                            type="password" 
-                            name="password" 
-                            required 
-                            autocomplete="current-password"
-                            description="{{ __('Please enter your current password to confirm this email change.') }}"
-                        />
-                    </div>
-                @endif
 
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&! auth()->user()->hasVerifiedEmail())
                     <div>
