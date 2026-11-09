@@ -1,3 +1,24 @@
 {
-    "outputDirectory": "public"
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "installCommand": "npm install && composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts",
+    "buildCommand": "npm run build",
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.5.2"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/build/(.*)",
+            "destination": "/public/build/$1"
+        },
+        {
+            "source": "/favicon.ico",
+            "destination": "/public/favicon.ico"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/api/index.php"
+        }
+    ]
 }
