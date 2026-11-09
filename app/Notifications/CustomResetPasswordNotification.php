@@ -2,18 +2,11 @@
 
 namespace App\Notifications;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class CustomResetPasswordNotification extends Notification
+class CustomResetPasswordNotification extends ResetPassword
 {
-    protected $token;
-
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
-
     public function via($notifiable)
     {
         return ['mail'];

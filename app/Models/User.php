@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
-use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
@@ -65,9 +64,5 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->hasMany(Note::class);
     }
-    public function sendPasswordResetNotification($token)
-{
-    $this->notify(new CustomResetPasswordNotification($token));
-}
 }
 
