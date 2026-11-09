@@ -7,7 +7,7 @@
             "runtime": "vercel-php@0.9.0"
         }
     },
-    "rewrites": [
+    "routes": [
         {
             "source": "/build/(.*)",
             "destination": "/public/build/$1"
@@ -15,6 +15,10 @@
         {
             "source": "/favicon.ico",
             "destination": "/public/favicon.ico"
+        },
+        {
+            "source": "/public/index.php",
+            "destination": "/api/index.php"
         },
         {
             "source": "/(.*)",
